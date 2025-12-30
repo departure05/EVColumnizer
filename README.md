@@ -10,7 +10,7 @@
 * Built with speed in mind.
 * Read any value from Everything inside Directory Opus. Performance is best when those values are indexed.
 * Configure everything from an easy UI: pick which Everything columns you want to expose in Opus. Enable only the columns you need.
-* Fine-grained column customization, including which file types each column applies to. (see note 1)
+* Fine-grained column customization, including which file types each column applies to. (see Notes)
 * Preview data using a sample file/folder.
 * Supports per-item cache for faster responses.
 
@@ -115,7 +115,7 @@ If you're interested, try the script and report edge cases (columns that return 
 
 If you want to help to translate the dialog into your current language, feel free to send me a message.
 
-## Credits 
+## Credits / Acknowledgments
 * David Carpenter for [Everything](https://www.voidtools.com) and [ES](https://github.com/voidtools/es).
 * GPSoftware team for Directory Opus.
 * Main icon from [All SVG Icons](https://allsvgicons.com)
