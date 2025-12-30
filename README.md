@@ -17,7 +17,7 @@
 ## Requirements
 
 * Everything **1.5** or newer, with Opus integration already enabled.
-* [Everything CLI](https://github.com/voidtools/es) (`es.exe`) **1.1.0.34** or newer.
+* [Everything CLI](https://github.com/voidtools/es) (`es.exe`) **1.1.0.35** or newer.
 * Directory Opus 13.19.6 or newer.
 
 
@@ -31,7 +31,8 @@ The script uses Everything's CLI to fetch values for the involved items directly
 
 To start adding columns, after install, just click in `Configure` in the Script Management window. You can also use `EvColumnizer CONFIG` as a command.
 
-<img width="1100" height="629" alt="image" src="https://github.com/user-attachments/assets/d1240533-3238-40be-9fd5-a00a474616d7" />
+<img width="1100" height="629" alt="2025-12-30 13-12-57 Clipboard Image" src="https://github.com/user-attachments/assets/b2e99d62-f74e-4500-96cc-a233001bd35b" />
+
 
 From there, just select the columns you want to make available in Opus.
 You can drag and drop any item into that window to preview all available columns, so it’s easier to make your selection.
@@ -57,8 +58,9 @@ You can import preconfigured columns from a compatible JSON file or from one gen
 You can export the checked columns to a JSON file to use as a backup or to move your column setup to another machine, using the Export button after selecting the columns you want to export.
 
 #### More Options
+<img width="673" height="459" alt="2025-12-30 13-13-05 Clipboard Image" src="https://github.com/user-attachments/assets/90d525ad-f11b-4518-91a6-8dff63aa02b9" />
 
-<img width="673" height="459" alt="image" src="https://github.com/user-attachments/assets/e87c7acd-dac6-4b68-8e47-b9ca35e97d64" />
+
 
 Clicking the Options icon (the cog icon) opens the Additional Options window.
 There you can change the script log output level:
@@ -92,19 +94,22 @@ Available arguments are:
 ## Current limitations
 
 * Some columns visible in Everything's GUI may not return the same values via `es.exe`. Please report any such cases.
+* Some values are retrieved in groups (indexed and fast), while others are retrieved only when explicitly requested, since they may take a considerable amount of time to calculate. The script always requests values in batches of items to avoid unnecessary calls, and the batch size depends on the column category.
+
 
 ## Technical notes
 
 * Indexed columns cannot be restricted by file type because they're retrieved for everything at once rather than pre-filtered per type.
-* There isn't a reliable programmatic way to tell whether a column is indexed (beyond common ones like size, etc.). Some properties can be indexed only for specific file types or paths. Here, "indexed" means properties Everything maintains without user intervention. If a column is indexed in Everything, its values should be faster to retrieve.
+* There isn't a reliable programmatic way to tell whether a column is indexed (beyond common ones like size, etc.) via ES.exe. Some properties can be indexed only for specific file types or paths. Here, "indexed" means properties Everything maintains without user intervention. If a column is indexed in Everything, its values should be faster to retrieve.
 * "Fast" means the value can be retrieved quicker and indicates those columns are fetched in batches rather than individually.
 * "Indexed" columns are hardcoded, so you can't choose specific filetypes.
 * Folders-only columns can't choose specific filetypes.
-* The in-memory cache purpose is mainly a workaround to allow batch retrievals and avoid recalculating values (for example, after expanding a column). A disk cache was avoided to keep things simpler. The cache is cleared when a tab is closed (for all related items). Opinions on whether the memory trade-off is worth the speed are welcome.
+* The in-memory cache purpose is mainly a workaround to allow batch retrievals and avoid recalculating values (for example, after expanding a folder). A disk cache was avoided to keep things faster and avoid unnecesary disk usage.
+* The cache is cleared when a tab is closed (for all related items), on demand, whenever you change to another path in the related tab or refresh it(unless you uncheck the corresponding option). Opinions on whether the memory trade-off is worth the speed are welcome.
 * ES.exe returns the raw values, so some column types may not make sense here (I'm considering dropping date/time columns). Some values come back in hexadecimal; a few require hardcoded conversions to be human-friendly (attributes, etc.). Ultimately the user chooses the data type for each column.
 * Checksum-related columns are not retrieved when previewed items in the Configuration dialog, this mainly because the potential time usage. But can be used in columns just fine.
-* Even though the cache is very useful for reducing the processing time, keep in mind it means Opus will use more memory over time, which in some cases could lead to general misbehavior of the program. Because of that, it’s not recommended to set cache age values higher than 60 minutes.
-* Most of the strings in the configuration dialog depend on the current Opus language. Any strings that aren’t translated will appear in English for most users, unless you’re using Opus with the Spanish (Mexico) language.
+* Even though the cache is very useful for reducing the processing time, keep in mind it means Opus will use more memory over time, which in some cases could lead to general misbehavior of the program. Because of that, it's not recommended to set cache age values higher than 60 minutes.
+* Most of the strings in the configuration dialog depend on the current Opus language. Any strings that aren't translated will appear in English for most users, unless you're using Opus with the Spanish (Mexico) language.
 
 
 ## If you want to help
